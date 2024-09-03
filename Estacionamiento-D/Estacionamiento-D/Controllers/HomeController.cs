@@ -1,5 +1,6 @@
 using Estacionamiento_D.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 
 namespace Estacionamiento_D.Controllers
