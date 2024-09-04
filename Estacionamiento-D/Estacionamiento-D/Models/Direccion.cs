@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Estacionamiento_D.Models
 {
@@ -12,6 +13,7 @@ namespace Estacionamiento_D.Models
         public Persona  Persona{ get; set; }
 
         //Prop Relacional
+        [Required]
         public int PersonaId { get; set; }
     }
 }
