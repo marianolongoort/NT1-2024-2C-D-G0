@@ -28,7 +28,7 @@ namespace Estacionamiento_D.Models
         [Display(Name ="Correo")]
         public string Email { get; set; }
 
-        public DateTime FechaAlta { get; set; }
+        public DateTime FechaAlta { get; set; } = DateTime.Now;
 
         [DataType(DataType.Password)]
         public string Password { get; set; }
