@@ -12,9 +12,10 @@ namespace Estacionamiento_D.Controllers
             return View();
         }
 
-        public ActionResult Privacy()
+        public ActionResult Privacy(int id)
         {
-            return View();
+
+            return View(id);
         }
 
         public ActionResult MostrarNombre(string nombre = "ND") {         

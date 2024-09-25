@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Telefono>
+﻿@model IEnumerable<Estacionamiento_D.Models.Direccion>
 
 @{
     ViewData["Title"] = "Index";
@@ -7,34 +7,34 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Crear</a>
+    <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Calle)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Numero)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TipoTelefono)
+                @Html.DisplayNameFor(model => model.Persona)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cliente)
-            </th>
-            <th>Acciones</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Calle)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Numero)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TipoTelefono)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cliente.Apellido)
+                @Html.DisplayFor(modelItem => item.Persona.Apellido)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

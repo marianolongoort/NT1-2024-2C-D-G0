@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Persona>
+
+<div>
+    <p>
+        Hola este es Test2
+    </p>
+</div>
+<div>
+    <h2>
+        Listado de Personas
+    </h2>
+    @if (Model == null || !Model.Any())
+    {
+        <p class="text-danger">
+            No hay personas en la DB.
+        </p>
+    }
+    else
+    {
+        <ul>
+            @foreach (Persona persona in Model)
+            {
+                <li>
+                    @persona.NombreCompleto <a asp-controller="Test2" asp-action="Details" asp-route-id="@persona.Id">detalles</a>
+                </li>
+            }
+        </ul>
+    }
+</div>

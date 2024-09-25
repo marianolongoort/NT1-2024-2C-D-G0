@@ -1,0 +1,21 @@
+﻿@model Persona
+
+
+<div>
+    <ul>
+        <li>
+            @Model.NombreCompleto
+        </li>
+        <li>
+            @Model.Email
+        </li>
+
+        @if (Model.Direccion is not null)
+        {
+            <li>
+                Direccion: @Model.Direccion.Calle @Model.Direccion.Numero
+            </li>
+        }
+
+    </ul>
+</div>
