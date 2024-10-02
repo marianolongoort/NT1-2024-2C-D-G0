@@ -1,6 +1,8 @@
 using Estacionamiento_D.Data;
+using Estacionamiento_D.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -14,11 +16,11 @@ namespace Estacionamiento_D
 
             // Add services to the container.
 
+           
             builder.Services.AddDbContext<EstacionamientoDb>(
-                options => options.UseInMemoryDatabase("EstacionamientoDb")
+                options => options.UseSqlServer(builder.Configuration.GetConnectionString("EstacionamientoCS"))
                 );
-
-
+            
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();

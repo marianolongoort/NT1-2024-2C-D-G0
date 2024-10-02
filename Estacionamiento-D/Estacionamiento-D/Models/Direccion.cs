@@ -6,7 +6,7 @@ namespace Estacionamiento_D.Models
     public class Direccion
     {
         public int Id { get; set; }
-        public string Calle { get; set; }
+        public string Calle { get; set; } = "ND";
         public int Numero { get; set; }
 
         //Prop Navegacional
@@ -15,5 +15,7 @@ namespace Estacionamiento_D.Models
         //Prop Relacional
         [Required]
         public int PersonaId { get; set; }
+        [Required]
+        public string CodigoPostal { get; set; }
     }
 }

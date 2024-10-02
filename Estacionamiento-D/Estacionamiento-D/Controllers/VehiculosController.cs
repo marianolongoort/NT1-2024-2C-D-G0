@@ -22,7 +22,7 @@ namespace Estacionamiento_D.Controllers
         // GET: Vehiculos
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Vehiculo.ToListAsync());
+            return View(await _context.Vehiculos.ToListAsync());
         }
 
         // GET: Vehiculos/Details/5
@@ -33,7 +33,7 @@ namespace Estacionamiento_D.Controllers
                 return NotFound();
             }
 
-            var vehiculo = await _context.Vehiculo
+            var vehiculo = await _context.Vehiculos
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (vehiculo == null)
             {
@@ -73,7 +73,7 @@ namespace Estacionamiento_D.Controllers
                 return NotFound();
             }
 
-            var vehiculo = await _context.Vehiculo.FindAsync(id);
+            var vehiculo = await _context.Vehiculos.FindAsync(id);
             if (vehiculo == null)
             {
                 return NotFound();
@@ -124,7 +124,7 @@ namespace Estacionamiento_D.Controllers
                 return NotFound();
             }
 
-            var vehiculo = await _context.Vehiculo
+            var vehiculo = await _context.Vehiculos
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (vehiculo == null)
             {
@@ -139,10 +139,10 @@ namespace Estacionamiento_D.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var vehiculo = await _context.Vehiculo.FindAsync(id);
+            var vehiculo = await _context.Vehiculos.FindAsync(id);
             if (vehiculo != null)
             {
-                _context.Vehiculo.Remove(vehiculo);
+                _context.Vehiculos.Remove(vehiculo);
             }
 
             await _context.SaveChangesAsync();
@@ -151,7 +151,7 @@ namespace Estacionamiento_D.Controllers
 
         private bool VehiculoExists(int id)
         {
-            return _context.Vehiculo.Any(e => e.Id == id);
+            return _context.Vehiculos.Any(e => e.Id == id);
         }
     }
 }

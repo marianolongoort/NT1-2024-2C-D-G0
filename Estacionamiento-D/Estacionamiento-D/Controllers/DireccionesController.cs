@@ -19,14 +19,12 @@ namespace Estacionamiento_D.Controllers
             _context = context;
         }
 
-        // GET: Direcciones
         public async Task<IActionResult> Index()
         {
-            var estacionamientoDb = _context.Direccion.Include(d => d.Persona);
+            var estacionamientoDb = _context.Direcciones.Include(d => d.Persona);
             return View(await estacionamientoDb.ToListAsync());
         }
 
-        // GET: Direcciones/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,7 +32,7 @@ namespace Estacionamiento_D.Controllers
                 return NotFound();
             }
 
-            var direccion = await _context.Direccion
+            var direccion = await _context.Direcciones
                 .Include(d => d.Persona)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (direccion == null)
@@ -45,19 +43,15 @@ namespace Estacionamiento_D.Controllers
             return View(direccion);
         }
 
-        // GET: Direcciones/Create
         public IActionResult Create()
         {
-            ViewData["PersonaId"] = new SelectList(_context.Personas, "Id", "Apellido");
+            ViewData["PersonaId"] = new SelectList(_context.Personas, "Id", "NombreCompleto");
             return View();
         }
 
-        // POST: Direcciones/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Calle,Numero,PersonaId")] Direccion direccion)
+        public async Task<IActionResult> Create([Bind("Id,Calle,Numero,PersonaId,CodigoPostal")] Direccion direccion)
         {
             if (ModelState.IsValid)
             {
@@ -65,11 +59,10 @@ namespace Estacionamiento_D.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PersonaId"] = new SelectList(_context.Personas, "Id", "Apellido", direccion.PersonaId);
+            ViewData["PersonaId"] = new SelectList(_context.Personas, "Id", "NombreCompleto", direccion.PersonaId);
             return View(direccion);
         }
 
-        // GET: Direcciones/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,7 +70,7 @@ namespace Estacionamiento_D.Controllers
                 return NotFound();
             }
 
-            var direccion = await _context.Direccion.FindAsync(id);
+            var direccion = await _context.Direcciones.FindAsync(id);
             if (direccion == null)
             {
                 return NotFound();
@@ -86,12 +79,9 @@ namespace Estacionamiento_D.Controllers
             return View(direccion);
         }
 
-        // POST: Direcciones/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Calle,Numero,PersonaId")] Direccion direccion)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Calle,Numero,PersonaId,CodigoPostal")] Direccion direccion)
         {
             if (id != direccion.Id)
             {
@@ -119,10 +109,11 @@ namespace Estacionamiento_D.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["PersonaId"] = new SelectList(_context.Personas, "Id", "Apellido", direccion.PersonaId);
+
+            //ModelState.AddModelError("Calle","Esa calle no existe");
             return View(direccion);
         }
 
-        // GET: Direcciones/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,7 +121,7 @@ namespace Estacionamiento_D.Controllers
                 return NotFound();
             }
 
-            var direccion = await _context.Direccion
+            var direccion = await _context.Direcciones
                 .Include(d => d.Persona)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (direccion == null)
@@ -141,15 +132,14 @@ namespace Estacionamiento_D.Controllers
             return View(direccion);
         }
 
-        // POST: Direcciones/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var direccion = await _context.Direccion.FindAsync(id);
+            var direccion = await _context.Direcciones.FindAsync(id);
             if (direccion != null)
             {
-                _context.Direccion.Remove(direccion);
+                _context.Direcciones.Remove(direccion);
             }
 
             await _context.SaveChangesAsync();
@@ -158,7 +148,7 @@ namespace Estacionamiento_D.Controllers
 
         private bool DireccionExists(int id)
         {
-            return _context.Direccion.Any(e => e.Id == id);
+            return _context.Direcciones.Any(e => e.Id == id);
         }
     }
 }

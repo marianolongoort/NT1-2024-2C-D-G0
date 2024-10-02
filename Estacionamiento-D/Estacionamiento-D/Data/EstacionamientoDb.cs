@@ -28,6 +28,7 @@ namespace Estacionamiento_D.Data
                                 .WithMany(v => v.ClientesVehiculos)
                                 .HasForeignKey(cv => cv.VehiculoId);
 
+            //modelBuilder.Entity<Persona>().ToTable("LasPersonas");
         }
 
 
@@ -35,9 +36,9 @@ namespace Estacionamiento_D.Data
         public DbSet<Test> Tests { get; set; }
         public DbSet<Telefono> Telefonos { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
-        public DbSet<Estacionamiento_D.Models.Direccion> Direccion { get; set; }
-        public DbSet<Estacionamiento_D.Models.ClienteVehiculo> ClienteVehiculo { get; set; }
-        public DbSet<Estacionamiento_D.Models.Vehiculo> Vehiculo { get; set; }
+        public DbSet<Direccion> Direcciones { get; set; }
+        public DbSet<ClienteVehiculo> ClientesVehiculos { get; set; }
+        public DbSet<Vehiculo> Vehiculos { get; set; }
 
     }
 }

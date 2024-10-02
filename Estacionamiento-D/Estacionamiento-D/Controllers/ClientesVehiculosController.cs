@@ -22,7 +22,7 @@ namespace Estacionamiento_D.Controllers
         // GET: ClientesVehiculos
         public async Task<IActionResult> Index()
         {
-            var estacionamientoDb = _context.ClienteVehiculo.Include(c => c.Cliente).Include(c => c.Vehiculo);
+            var estacionamientoDb = _context.ClientesVehiculos.Include(c => c.Cliente).Include(c => c.Vehiculo);
             return View(await estacionamientoDb.ToListAsync());
         }
 
@@ -34,7 +34,7 @@ namespace Estacionamiento_D.Controllers
                 return NotFound();
             }
 
-            var clienteVehiculo = await _context.ClienteVehiculo
+            var clienteVehiculo = await _context.ClientesVehiculos
                 .Include(c => c.Cliente)
                 .Include(c => c.Vehiculo)
                 .FirstOrDefaultAsync(m => m.ClienteId == id);
@@ -80,7 +80,7 @@ namespace Estacionamiento_D.Controllers
                 return NotFound();
             }
 
-            var clienteVehiculo = await _context.ClienteVehiculo.FindAsync(id);
+            var clienteVehiculo = await _context.ClientesVehiculos.FindAsync(id);
             if (clienteVehiculo == null)
             {
                 return NotFound();
@@ -135,7 +135,7 @@ namespace Estacionamiento_D.Controllers
                 return NotFound();
             }
 
-            var clienteVehiculo = await _context.ClienteVehiculo
+            var clienteVehiculo = await _context.ClientesVehiculos
                 .Include(c => c.Cliente)
                 .Include(c => c.Vehiculo)
                 .FirstOrDefaultAsync(m => m.ClienteId == id);
@@ -152,10 +152,10 @@ namespace Estacionamiento_D.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var clienteVehiculo = await _context.ClienteVehiculo.FindAsync(id);
+            var clienteVehiculo = await _context.ClientesVehiculos.FindAsync(id);
             if (clienteVehiculo != null)
             {
-                _context.ClienteVehiculo.Remove(clienteVehiculo);
+                _context.ClientesVehiculos.Remove(clienteVehiculo);
             }
 
             await _context.SaveChangesAsync();
@@ -164,7 +164,7 @@ namespace Estacionamiento_D.Controllers
 
         private bool ClienteVehiculoExists(int id)
         {
-            return _context.ClienteVehiculo.Any(e => e.ClienteId == id);
+            return _context.ClientesVehiculos.Any(e => e.ClienteId == id);
         }
     }
 }
