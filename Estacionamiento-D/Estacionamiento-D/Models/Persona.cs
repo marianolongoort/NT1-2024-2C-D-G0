@@ -1,14 +1,15 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Estacionamiento_D.Models
 {
-    public class Persona
+    public class Persona : IdentityUser<int>
     {
         private const string _requiredMsg = "El campo {0} es requerido";
-        public int Id { get; set; }
+        //public int Id { get; set; }
 
         [Required(ErrorMessage = _requiredMsg)]
         [StringLength(200, MinimumLength = 5, ErrorMessage = "{0} debe tener como minimo {2} y como maximo {1}")]
@@ -27,7 +28,10 @@ namespace Estacionamiento_D.Models
         [Required(ErrorMessage = _requiredMsg)]
         [EmailAddress]
         [Display(Name = "Correo")]
-        public string Email { get; set; }
+        public override string Email {
+            get { return base.Email; }
+            set { base.Email = value; }
+        }
 
         public DateTime FechaAlta { get; set; } = DateTime.Now;
 

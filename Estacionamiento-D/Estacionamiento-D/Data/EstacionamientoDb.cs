@@ -1,10 +1,12 @@
 ﻿using Estacionamiento_D.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
 namespace Estacionamiento_D.Data
 {
-    public class EstacionamientoDb : DbContext
+    public class EstacionamientoDb : IdentityDbContext<IdentityUser<int>,IdentityRole<int>,int>
     {
         public EstacionamientoDb(DbContextOptions options) : base(options)
         {
@@ -28,7 +30,9 @@ namespace Estacionamiento_D.Data
                                 .WithMany(v => v.ClientesVehiculos)
                                 .HasForeignKey(cv => cv.VehiculoId);
 
-            //modelBuilder.Entity<Persona>().ToTable("LasPersonas");
+            modelBuilder.Entity<IdentityUser<int>>().ToTable("Personas");
+            modelBuilder.Entity<IdentityRole<int>>().ToTable("Roles");
+            modelBuilder.Entity<IdentityUserRole<int>>().ToTable("PersonasRoles");
         }
 
 
@@ -39,6 +43,8 @@ namespace Estacionamiento_D.Data
         public DbSet<Direccion> Direcciones { get; set; }
         public DbSet<ClienteVehiculo> ClientesVehiculos { get; set; }
         public DbSet<Vehiculo> Vehiculos { get; set; }
+
+        public DbSet<Rol> Roles { get; set; }
 
     }
 }

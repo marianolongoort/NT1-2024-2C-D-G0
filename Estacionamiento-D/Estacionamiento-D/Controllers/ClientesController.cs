@@ -50,7 +50,7 @@ namespace Estacionamiento_D.Controllers
             cliente.Nombre = "Vilma";
             cliente.Apellido = "Picapiedra";
             cliente.Email = "vilma@ort.edu.ar";
-            cliente.Password = "Password1!";
+            //cliente.Password = "Password1!";
             
 
             return View(cliente);
@@ -93,9 +93,9 @@ namespace Estacionamiento_D.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,Email,FechaAlta,Password")] Cliente cliente)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,Email,FechaAlta,Password")] Cliente clienteFormulario)
         {
-            if (id != cliente.Id)
+            if (id != clienteFormulario.Id)
             {
                 return NotFound();
             }
@@ -104,12 +104,17 @@ namespace Estacionamiento_D.Controllers
             {
                 try
                 {
-                    _context.Update(cliente);
+                    Cliente clienteEnDb = _context.Clientes.Find(clienteFormulario.Id);
+                    clienteEnDb.Nombre = clienteFormulario.Nombre;
+                    clienteEnDb.Apellido = clienteFormulario.Apellido;
+
+
+                    _context.Update(clienteEnDb);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ClienteExists(cliente.Id))
+                    if (!ClienteExists(clienteFormulario.Id))
                     {
                         return NotFound();
                     }
@@ -120,7 +125,7 @@ namespace Estacionamiento_D.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(cliente);
+            return View(clienteFormulario);
         }
 
         // GET: Clientes/Delete/5

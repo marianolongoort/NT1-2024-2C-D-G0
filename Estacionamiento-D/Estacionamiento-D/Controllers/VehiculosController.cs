@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Estacionamiento_D.Data;
 using Estacionamiento_D.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Estacionamiento_D.Controllers
 {
+    [Authorize]
     public class VehiculosController : Controller
     {
         private readonly EstacionamientoDb _context;
@@ -20,6 +22,8 @@ namespace Estacionamiento_D.Controllers
         }
 
         // GET: Vehiculos
+
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Vehiculos.ToListAsync());
@@ -117,6 +121,7 @@ namespace Estacionamiento_D.Controllers
         }
 
         // GET: Vehiculos/Delete/5
+        [Authorize(Roles = "Administrador,Empleado")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,6 +142,7 @@ namespace Estacionamiento_D.Controllers
         // POST: Vehiculos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador,Empleado")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var vehiculo = await _context.Vehiculos.FindAsync(id);

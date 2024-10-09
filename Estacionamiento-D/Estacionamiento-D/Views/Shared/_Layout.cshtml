@@ -46,6 +46,24 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Vehiculos" asp-action="Index">Vehiculos</a>
                         </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="CerrarSesion">Cerrar sesión</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Registrar">Registrarse</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="IniciarSesion">Iniciar sesión</a>
+                            </li>
+                        }
+
+
+
                     </ul>
                 </div>
             </div>
@@ -62,6 +80,7 @@
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2024 - Estacionamiento_D - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <a asp-controller="Precarga" asp-action="Seed" class="badge bg-warning">Precargar</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
